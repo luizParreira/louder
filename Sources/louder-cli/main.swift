@@ -81,7 +81,7 @@ for sig in [SIGINT, SIGTERM, SIGHUP] {
         signalsReceived += 1
         if signalsReceived > 1 { _exit(130) }
         alarm(2)
-        DispatchQueue.main.async { MainActor.assumeIsolated { finish("\nStopped. Normal audio restored.") } }
+        DispatchQueue.main.async { MainActor.assumeIsolated { () -> Void in finish("\nStopped. Normal audio restored.") } }
     }
     source.resume()
     keepAlive.append(source)
