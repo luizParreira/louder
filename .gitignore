@@ -1,0 +1,7 @@
+.build/
+build/
+.swiftpm/
+*.dmg
+*.zip
+.DS_Store
+Brand/RECEIPTS.md

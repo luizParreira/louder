@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tag matches app version
+        run: |
+          PLIST_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Resources/Info.plist)"
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [[ "$PLIST_VERSION" != "$TAG_VERSION" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match CFBundleShortVersionString $PLIST_VERSION in Resources/Info.plist"
+            exit 1
+          fi
+      - name: Test
+        run: swift test
+      - name: Build release artifacts
+        run: make release-artifacts
+      - name: Upload to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          ASSETS=(
+            "build/Louder-$VERSION.dmg"
+            "build/Louder-$VERSION.dmg.sha256"
+            "build/Louder-$VERSION.zip"
+            "build/Louder-$VERSION.zip.sha256"
+            build/Louder.zip
+            build/Louder.zip.sha256
+          )
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" --clobber "${ASSETS[@]}"
+          else
+            gh release create "$GITHUB_REF_NAME" --verify-tag --title "Louder $VERSION" --generate-notes "${ASSETS[@]}"
+          fi
