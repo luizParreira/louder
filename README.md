@@ -74,7 +74,7 @@ The script downloads `Louder.zip` from the latest release, checks its SHA-256 ch
 To install a specific release, set `LOUDER_VERSION` to its tag:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/luizParreira/louder/main/scripts/install.sh | LOUDER_VERSION=v1.0.0 bash
+curl -fsSL https://raw.githubusercontent.com/luizParreira/louder/main/scripts/install.sh | LOUDER_VERSION=v1.0.1 bash
 ```
 
 ### 2. Download from Releases

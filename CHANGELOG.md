@@ -4,6 +4,18 @@ All notable changes to Louder are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-11-06
+
+No changes to how the app behaves.
+
+### Fixed
+
+- The project now builds with Swift 6.1 (Xcode 16).
+
+### Changed
+
+- Release builds now come from the GitHub release workflow. CI also builds the release artifacts on every push.
+
 ## [1.0.0] - 2026-11-04
 
 Initial release.
@@ -18,4 +30,5 @@ Initial release.
 - Turns off before sleep and back on after wake, and remembers boost, output and on/off state.
 - One-line installer and uninstaller scripts; ad-hoc signed universal builds as DMG and zip.
 
+[1.0.1]: https://github.com/luizParreira/louder/releases/tag/v1.0.1
 [1.0.0]: https://github.com/luizParreira/louder/releases/tag/v1.0.0
